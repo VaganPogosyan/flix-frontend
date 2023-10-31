@@ -1,4 +1,7 @@
+"use client";
+import { useState } from "react";
 import MoviesRow from "./MoviesRow";
+import Spinner from "./Spinner";
 
 const categories = [
   "trending",
@@ -26,14 +29,24 @@ const categories = [
 ]!;
 
 export default function AllMovies() {
+  const [isLoading, setIsLoading] = useState(false);
+
   return (
     <div>
       <ul>
-        {categories.map((category: string) => (
-          <li key={category}>
-            <MoviesRow category={category} />
-          </li>
-        ))}
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          categories.map((category: string) => (
+            <li key={category}>
+              <MoviesRow
+                category={category}
+                setIsLoading={setIsLoading}
+                isLoading={isLoading}
+              />
+            </li>
+          ))
+        )}
       </ul>
     </div>
   );

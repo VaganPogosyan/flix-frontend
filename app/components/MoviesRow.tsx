@@ -2,11 +2,15 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import popcorn from "../../public/popcorn.jpg";
+import MovieCard from "./MovieCard";
+import Spinner from "./Spinner";
 
 const base_url = "http://localhost:8000/api";
 
 interface Props {
   category: string;
+  setIsLoading: (isLoading: boolean) => void;
+  isLoading: boolean;
 }
 
 interface Movie {
@@ -27,9 +31,20 @@ interface Movie {
   vote_count: number;
 }
 
-export default function MoviesRow({ category }: Props) {
+export default function MoviesRow({
+  category,
+  setIsLoading,
+  isLoading,
+}: Props) {
   const [allMovies, setAllMovies] = useState<Movie[]>([])!;
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  // const [isLoading, setIsLoading] = useState<boolean>(true);
+  const categoryFormattedHeading = category
+    .replace("movies", "")
+    .replace("tvshows", "")
+    .replaceAll("_", " ")
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.substring(1))
+    .join(" ");
 
   useEffect(() => {
     setIsLoading(true);
@@ -45,34 +60,38 @@ export default function MoviesRow({ category }: Props) {
         setAllMovies(data.data);
         setIsLoading(false);
       });
-  }, []);
+  }, [category, setAllMovies, setIsLoading]);
 
   return (
-    <div>
-      <ul className="flex flex-row mx-16">
-        {isLoading
-          ? "...Loading"
-          : allMovies.map((el) => (
-              <li key={el.id} className="min-w-fit m-2">
-                <Image
-                  width={170}
-                  height={100}
-                  loader={() =>
-                    el.poster_path
-                      ? `https://image.tmdb.org/t/p/w300${el.poster_path}`
-                      : "https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM="
-                  }
-                  src={`https://image.tmdb.org/t/p/original${el.poster_path}`}
-                  alt=""
-                />
-                {/* <img
-                  src={`https://image.tmdb.org/t/p/w300/${el.poster_path}`}
-                  alt=""
-                /> */}
-                {/* {el.name} */}
-              </li>
-            ))}
+    !isLoading && (
+      <ul className=" mx-16">
+        <h1>{categoryFormattedHeading}</h1>
+        <div className="flex">
+          {allMovies.map((movie: Movie) => (
+            <MovieCard key={movie.id} movie={movie} />
+          ))}
+        </div>
       </ul>
-    </div>
+    )
   );
+
+  // return true ? (
+  //   <ul className=" mx-16">
+  //     <div className="flex">
+  //       <Spinner />
+  //       {/* {allMovies.map((movie: Movie) => (
+  //         <MovieCard key={movie.id} movie={movie} />
+  //         ))} */}
+  //     </div>
+  //   </ul>
+  // ) : (
+  //   <ul className=" mx-16">
+  //     <h1>{categoryFormattedHeading}</h1>
+  //     <div className="flex">
+  //       {allMovies.map((movie: Movie) => (
+  //         <MovieCard key={movie.id} movie={movie} />
+  //       ))}
+  //     </div>
+  //   </ul>
+  // );
 }
