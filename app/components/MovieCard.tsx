@@ -18,6 +18,7 @@ interface Movie {
   video: boolean;
   vote_average: number;
   vote_count: number;
+  first_air_date?: string;
 }
 
 interface Props {
@@ -52,7 +53,11 @@ export default function MovieCard({ movie }: Props) {
       onMouseOut={() => setIsHovering(false)}
     >
       {showMovieDetails && (
-        <MovieDetails mouseOutEvent={mouseOutEvent} movie_id={movie.id} />
+        <MovieDetails
+          mouseOutEvent={mouseOutEvent}
+          movie_id={movie.id}
+          isTV={movie.media_type !== "movie" && !!movie.first_air_date}
+        />
       )}
 
       <div className="rounded-md overflow-hidden">

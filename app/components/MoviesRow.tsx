@@ -29,6 +29,7 @@ interface Movie {
   video: boolean;
   vote_average: number;
   vote_count: number;
+  first_air_date?: string;
 }
 
 export default function MoviesRow({
@@ -40,7 +41,7 @@ export default function MoviesRow({
   // const [isLoading, setIsLoading] = useState<boolean>(true);
   const categoryFormattedHeading = category
     .replace("movies", "")
-    .replace("tvshows", "")
+    // .replace("tvshows", "")
     .replaceAll("_", " ")
     .split(" ")
     .map((word) => word.charAt(0).toUpperCase() + word.substring(1))
