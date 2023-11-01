@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import popcorn from "../../public/popcorn.jpg";
 import MovieCard from "./MovieCard";
 import Spinner from "./Spinner";
+import { Movie } from "./types";
 
 const base_url = "http://localhost:8000/api";
 
@@ -13,25 +14,6 @@ interface Props {
   isLoading: boolean;
   oneVideoPlaying: boolean;
   setOneVideoPlaying: (oneVideoPlaying: boolean) => void;
-}
-
-interface Movie {
-  adult: boolean;
-  backdrop_path: string;
-  id: number;
-  title: string;
-  original_language: string;
-  original_title: string;
-  overview: string;
-  poster_path: string;
-  media_type: string;
-  genre_ids: number[];
-  popularity: number;
-  release_date: string;
-  video: boolean;
-  vote_average: number;
-  vote_count: number;
-  first_air_date?: string;
 }
 
 export default function MoviesRow({
@@ -71,7 +53,7 @@ export default function MoviesRow({
     !isLoading && (
       <ul className="mx-16 mb-4">
         <h1 className="text-2xl text-neutral-200">
-          {!isLoading && categoryFormattedHeading}
+          {categoryFormattedHeading}
         </h1>
         <div className="flex">
           {allMovies.map((movie: Movie) => (

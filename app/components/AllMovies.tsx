@@ -34,26 +34,28 @@ export default function AllMovies() {
   const [oneVideoPlaying, setOneVideoPlaying] = useState(false);
 
   return (
-    <ul>
+    <div>
       {isLoading ? (
-        <div className="w-full flex  justify-center items-center">
+        <div className="w-full flex justify-center items-center">
           <div className="w-fit">
             <Spinner />
           </div>
         </div>
       ) : (
-        categories.map((category: string) => (
-          <li key={category}>
-            <MoviesRow
-              oneVideoPlaying={oneVideoPlaying}
-              setOneVideoPlaying={setOneVideoPlaying}
-              category={category}
-              setIsLoading={setIsLoading}
-              isLoading={isLoading}
-            />
-          </li>
-        ))
+        <ul>
+          {categories.map((category: string) => (
+            <li key={category}>
+              <MoviesRow
+                oneVideoPlaying={oneVideoPlaying}
+                setOneVideoPlaying={setOneVideoPlaying}
+                category={category}
+                setIsLoading={setIsLoading}
+                isLoading={isLoading}
+              />
+            </li>
+          ))}
+        </ul>
       )}
-    </ul>
+    </div>
   );
 }

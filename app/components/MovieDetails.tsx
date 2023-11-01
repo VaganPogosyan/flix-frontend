@@ -1,16 +1,23 @@
 import { useEffect, useState } from "react";
 import MovieClip from "./MovieClip";
 import MovieInfo from "./MovieInfo";
+import { Movie } from "./types";
 
 interface Props {
   mouseOutEvent: () => void;
   movie_id: number;
   isTV: string | boolean;
+  movie: Movie;
 }
 
 const base_url = "http://localhost:8000/api";
 
-export default function MovieDetails({ mouseOutEvent, movie_id, isTV }: Props) {
+export default function MovieDetails({
+  mouseOutEvent,
+  movie,
+  movie_id,
+  isTV,
+}: Props) {
   const [youtubeKey, setYoutubeKey] = useState("");
 
   const movie_or_tv = isTV ? "tv" : "movie";
@@ -28,7 +35,7 @@ export default function MovieDetails({ mouseOutEvent, movie_id, isTV }: Props) {
     <div>
       <div className="absolute w-[350px] h-[350px] z-[999999] bg-neutral-900 rounded-md overflow-hidden">
         <MovieClip youtubeKey={youtubeKey} />
-        <MovieInfo />
+        <MovieInfo movie={movie} />
       </div>
 
       <div

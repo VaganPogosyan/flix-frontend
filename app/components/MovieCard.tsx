@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import MovieDetails from "./MovieDetails";
 import { motion } from "framer-motion";
+import { Movie } from "./types";
 
 const variants = {
   hidden: {
@@ -13,25 +14,6 @@ const variants = {
     opacity: 1,
   },
 };
-
-interface Movie {
-  adult: boolean;
-  backdrop_path: string;
-  id: number;
-  title: string;
-  original_language: string;
-  original_title: string;
-  overview: string;
-  poster_path: string;
-  media_type: string;
-  genre_ids: number[];
-  popularity: number;
-  release_date: string;
-  video: boolean;
-  vote_average: number;
-  vote_count: number;
-  first_air_date?: string;
-}
 
 interface Props {
   movie: Movie;
@@ -49,7 +31,7 @@ export default function MovieCard({ movie }: Props) {
     if (isHovering) {
       timeoutId = setTimeout(() => {
         setShowMovieDetails(true);
-      }, 500);
+      }, 400);
     }
 
     return () => {
@@ -79,6 +61,7 @@ export default function MovieCard({ movie }: Props) {
           <MovieDetails
             mouseOutEvent={mouseOutEvent}
             movie_id={movie.id}
+            movie={movie}
             isTV={movie.media_type !== "movie" && !!movie.first_air_date}
           />
         </motion.div>
