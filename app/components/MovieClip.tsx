@@ -10,18 +10,18 @@ export default function MovieClip({ youtubeKey }: Props) {
   // event.target.pauseVideo();
   // };
 
-  const opts: YouTubeProps["opts"] = {
-    width: "320",
-    height: "200",
-  };
+  // const opts: YouTubeProps["opts"] = {
+  //   width: "350",
+  //   height: "200",
+  // };
 
   const youtubeUrl = `https://www.youtube.com/embed/${youtubeKey}?autoplay=1&fs=0`;
 
   return (
     <div>
       <iframe
-        width="320"
-        // height="200"
+        width="350"
+        height="220"
         src={youtubeUrl}
         title="YouTube video player"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

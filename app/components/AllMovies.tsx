@@ -33,22 +33,20 @@ export default function AllMovies() {
   // const [isHovering, setIsHovering] = useState(false);
 
   return (
-    <div>
-      <ul>
-        {isLoading ? (
-          <Spinner />
-        ) : (
-          categories.map((category: string) => (
-            <li key={category}>
-              <MoviesRow
-                category={category}
-                setIsLoading={setIsLoading}
-                isLoading={isLoading}
-              />
-            </li>
-          ))
-        )}
-      </ul>
-    </div>
+    <ul>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        categories.map((category: string) => (
+          <li key={category}>
+            <MoviesRow
+              category={category}
+              setIsLoading={setIsLoading}
+              isLoading={isLoading}
+            />
+          </li>
+        ))
+      )}
+    </ul>
   );
 }

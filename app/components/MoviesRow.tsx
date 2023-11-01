@@ -40,7 +40,7 @@ export default function MoviesRow({
   const [allMovies, setAllMovies] = useState<Movie[]>([])!;
 
   const categoryFormattedHeading = category
-    .replace("movies", "")
+    .replace("movies", "Movies")
     .replaceAll("_", " ")
     .replace("tvshows", "TV Shows")
     .split(" ")
@@ -65,7 +65,7 @@ export default function MoviesRow({
 
   return (
     !isLoading && (
-      <ul className=" mx-16">
+      <ul className="mx-16 mb-4">
         <h1 className="text-2xl text-neutral-200">
           {categoryFormattedHeading}
         </h1>

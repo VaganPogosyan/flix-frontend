@@ -7,9 +7,6 @@ interface Props {
   isTV: string | boolean;
 }
 
-// 'https://api.themoviedb.org/3/tv/series_id/videos?language=en-US';
-// 'https://api.themoviedb.org/3/movie/movie_id/videos?language=en-US';
-
 const base_url = "http://localhost:8000/api";
 
 export default function MovieDetails({ mouseOutEvent, movie_id, isTV }: Props) {
@@ -29,7 +26,7 @@ export default function MovieDetails({ mouseOutEvent, movie_id, isTV }: Props) {
   return (
     <div
       onMouseLeave={mouseOutEvent}
-      className="absolute w-[320px] h-[320px] bg-slate-500 z-[99999999] rounded-md overflow-hidden"
+      className="absolute w-[350px] h-[350px] bg-slate-500 z-[99999999] rounded-md overflow-hidden"
     >
       <MovieClip youtubeKey={youtubeKey} />
     </div>
