@@ -1,20 +1,8 @@
-import YouTube, { YouTubeProps } from "react-youtube";
-
 interface Props {
   youtubeKey: string;
 }
 
 export default function MovieClip({ youtubeKey }: Props) {
-  // const onPlayerReady: YouTubeProps["onReady"] = (event) => {
-  // access to player in all event handlers via event.target
-  // event.target.pauseVideo();
-  // };
-
-  // const opts: YouTubeProps["opts"] = {
-  //   width: "350",
-  //   height: "200",
-  // };
-
   const youtubeUrl = `https://www.youtube.com/embed/${youtubeKey}?autoplay=1&fs=0`;
 
   return (

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import MovieClip from "./MovieClip";
+import MovieInfo from "./MovieInfo";
 
 interface Props {
   mouseOutEvent: () => void;
@@ -27,6 +28,7 @@ export default function MovieDetails({ mouseOutEvent, movie_id, isTV }: Props) {
     <div>
       <div className="absolute w-[350px] h-[350px] z-[999999] bg-neutral-900 rounded-md overflow-hidden">
         <MovieClip youtubeKey={youtubeKey} />
+        <MovieInfo />
       </div>
 
       <div
@@ -36,15 +38,4 @@ export default function MovieDetails({ mouseOutEvent, movie_id, isTV }: Props) {
       ></div>
     </div>
   );
-}
-
-{
-  /* <motion.div
-    variants={variants}
-    initial="hidden"
-    animate="visible"
-    exit="hidden"
-    onMouseLeave={mouseOutEvent}
-    className="absolute w-[350px] h-[350px] bg-slate-500 z-[99999999] rounded-md overflow-hidden"
-  > */
 }

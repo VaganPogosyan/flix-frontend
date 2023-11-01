@@ -39,19 +39,9 @@ interface Props {
   setOneVideoPlaying: (oneVideoPlaying: boolean) => void;
 }
 
-export default function MovieCard({
-  movie,
-  oneVideoPlaying,
-  setOneVideoPlaying,
-}: Props) {
+export default function MovieCard({ movie }: Props) {
   const [showMovieDetails, setShowMovieDetails] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
-  // const [oneIsShowing, setOneIsShowing] = useState(false);
-
-  // only one MovieDetials component could be rendered
-  // check if there's MovieDetails cmoponent rendered
-  // if you start rendering another
-  // close the previous one
 
   useEffect(() => {
     let timeoutId: ReturnType<typeof setTimeout>;
