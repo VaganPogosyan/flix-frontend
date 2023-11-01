@@ -1,13 +1,6 @@
 import { useEffect, useState } from "react";
 import MovieClip from "./MovieClip";
-
-interface Props {
-  mouseOutEvent: () => void;
-  movie_id: number;
-  isTV: string | boolean;
-}
-
-const base_url = "http://localhost:8000/api";
+import { Props, base_url } from "./MovieDetails";
 
 export default function MovieDetails({ mouseOutEvent, movie_id, isTV }: Props) {
   const [youtubeKey, setYoutubeKey] = useState("");
@@ -24,27 +17,19 @@ export default function MovieDetails({ mouseOutEvent, movie_id, isTV }: Props) {
   }, [movie_id, movie_or_tv]);
 
   return (
-    <div>
-      <div className="absolute w-[350px] h-[350px] z-[999999] bg-neutral-900 rounded-md overflow-hidden">
+    <div
+      // onMouseLeave={mouseOutEvent}
+      className="absolute w-[350px] h-[350px] bg-slate-500  rounded-md overflow-hidden"
+    >
+      <div className="z-[99999]">
         <MovieClip youtubeKey={youtubeKey} />
       </div>
-
       <div
-        onMouseEnter={mouseOutEvent}
+        // onMouseEnter={mouseOutEvent}
         id="backdrop"
-        className="fixed inset-0 bg-opacity-50 z-[999]"
+        className="fixed inset-0 bg-emerald-600 bg-opacity-50 z-[9999999]"
       ></div>
+      {/* </motion.div> */}
     </div>
   );
-}
-
-{
-  /* <motion.div
-    variants={variants}
-    initial="hidden"
-    animate="visible"
-    exit="hidden"
-    onMouseLeave={mouseOutEvent}
-    className="absolute w-[350px] h-[350px] bg-slate-500 z-[99999999] rounded-md overflow-hidden"
-  > */
 }

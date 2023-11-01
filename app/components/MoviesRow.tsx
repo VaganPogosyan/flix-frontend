@@ -11,6 +11,8 @@ interface Props {
   category: string;
   setIsLoading: (isLoading: boolean) => void;
   isLoading: boolean;
+  oneVideoPlaying: boolean;
+  setOneVideoPlaying: (oneVideoPlaying: boolean) => void;
 }
 
 interface Movie {
@@ -36,6 +38,8 @@ export default function MoviesRow({
   category,
   setIsLoading,
   isLoading,
+  oneVideoPlaying,
+  setOneVideoPlaying,
 }: Props) {
   const [allMovies, setAllMovies] = useState<Movie[]>([])!;
 
@@ -67,11 +71,16 @@ export default function MoviesRow({
     !isLoading && (
       <ul className="mx-16 mb-4">
         <h1 className="text-2xl text-neutral-200">
-          {categoryFormattedHeading}
+          {!isLoading && categoryFormattedHeading}
         </h1>
         <div className="flex">
           {allMovies.map((movie: Movie) => (
-            <MovieCard key={movie.id} movie={movie} />
+            <MovieCard
+              oneVideoPlaying={oneVideoPlaying}
+              setOneVideoPlaying={setOneVideoPlaying}
+              key={movie.id}
+              movie={movie}
+            />
           ))}
         </div>
       </ul>

@@ -31,15 +31,22 @@ const categories = [
 export default function AllMovies() {
   const [isLoading, setIsLoading] = useState(false);
   // const [isHovering, setIsHovering] = useState(false);
+  const [oneVideoPlaying, setOneVideoPlaying] = useState(false);
 
   return (
     <ul>
       {isLoading ? (
-        <Spinner />
+        <div className="w-full flex  justify-center items-center">
+          <div className="w-fit">
+            <Spinner />
+          </div>
+        </div>
       ) : (
         categories.map((category: string) => (
           <li key={category}>
             <MoviesRow
+              oneVideoPlaying={oneVideoPlaying}
+              setOneVideoPlaying={setOneVideoPlaying}
               category={category}
               setIsLoading={setIsLoading}
               isLoading={isLoading}

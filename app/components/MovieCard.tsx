@@ -1,6 +1,18 @@
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import MovieDetails from "./MovieDetails";
+import { motion } from "framer-motion";
+
+const variants = {
+  hidden: {
+    scale: 0.3,
+    opacity: 0.9,
+  },
+  visible: {
+    scale: 1,
+    opacity: 1,
+  },
+};
 
 interface Movie {
   adult: boolean;
@@ -23,11 +35,23 @@ interface Movie {
 
 interface Props {
   movie: Movie;
+  oneVideoPlaying: boolean;
+  setOneVideoPlaying: (oneVideoPlaying: boolean) => void;
 }
 
-export default function MovieCard({ movie }: Props) {
+export default function MovieCard({
+  movie,
+  oneVideoPlaying,
+  setOneVideoPlaying,
+}: Props) {
   const [showMovieDetails, setShowMovieDetails] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
+  // const [oneIsShowing, setOneIsShowing] = useState(false);
+
+  // only one MovieDetials component could be rendered
+  // check if there's MovieDetails cmoponent rendered
+  // if you start rendering another
+  // close the previous one
 
   useEffect(() => {
     let timeoutId: ReturnType<typeof setTimeout>;
@@ -49,15 +73,25 @@ export default function MovieCard({ movie }: Props) {
     <li
       key={movie.id}
       className="relative min-w-fit m-2 hover:cursor-pointer flex justify-center items-center"
-      onMouseOver={() => setIsHovering(true)}
+      onMouseOver={() => {
+        setIsHovering(true);
+      }}
       onMouseOut={() => setIsHovering(false)}
     >
       {showMovieDetails && (
-        <MovieDetails
-          mouseOutEvent={mouseOutEvent}
-          movie_id={movie.id}
-          isTV={movie.media_type !== "movie" && !!movie.first_air_date}
-        />
+        <motion.div
+          className="absolute w-[350px] h-[350px] z-[999] rounded-xl overflow-hidden shadow-[0px_0px_30px_black]"
+          variants={variants}
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
+        >
+          <MovieDetails
+            mouseOutEvent={mouseOutEvent}
+            movie_id={movie.id}
+            isTV={movie.media_type !== "movie" && !!movie.first_air_date}
+          />
+        </motion.div>
       )}
 
       <div className="rounded-md overflow-hidden">
