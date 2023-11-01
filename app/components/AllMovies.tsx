@@ -5,11 +5,11 @@ import Spinner from "./Spinner";
 
 const categories = [
   "trending",
-  "top_rated_movies",
+  "action_movies",
+  // "top_rated_movies",
   "popular_movies",
   "top_rated_tvshows",
   "popular_tvshows",
-  //   "action_movies",
   //   "adventure_movies",
   //   "animation_movies",
   //   "comedy_movies",
@@ -30,6 +30,7 @@ const categories = [
 
 export default function AllMovies() {
   const [isLoading, setIsLoading] = useState(false);
+  // const [isHovering, setIsHovering] = useState(false);
 
   return (
     <div>

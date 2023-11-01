@@ -38,11 +38,11 @@ export default function MoviesRow({
   isLoading,
 }: Props) {
   const [allMovies, setAllMovies] = useState<Movie[]>([])!;
-  // const [isLoading, setIsLoading] = useState<boolean>(true);
+
   const categoryFormattedHeading = category
     .replace("movies", "")
-    // .replace("tvshows", "")
     .replaceAll("_", " ")
+    .replace("tvshows", "TV Shows")
     .split(" ")
     .map((word) => word.charAt(0).toUpperCase() + word.substring(1))
     .join(" ");
@@ -66,7 +66,9 @@ export default function MoviesRow({
   return (
     !isLoading && (
       <ul className=" mx-16">
-        <h1>{categoryFormattedHeading}</h1>
+        <h1 className="text-2xl text-neutral-200">
+          {categoryFormattedHeading}
+        </h1>
         <div className="flex">
           {allMovies.map((movie: Movie) => (
             <MovieCard key={movie.id} movie={movie} />
@@ -75,24 +77,4 @@ export default function MoviesRow({
       </ul>
     )
   );
-
-  // return true ? (
-  //   <ul className=" mx-16">
-  //     <div className="flex">
-  //       <Spinner />
-  //       {/* {allMovies.map((movie: Movie) => (
-  //         <MovieCard key={movie.id} movie={movie} />
-  //         ))} */}
-  //     </div>
-  //   </ul>
-  // ) : (
-  //   <ul className=" mx-16">
-  //     <h1>{categoryFormattedHeading}</h1>
-  //     <div className="flex">
-  //       {allMovies.map((movie: Movie) => (
-  //         <MovieCard key={movie.id} movie={movie} />
-  //       ))}
-  //     </div>
-  //   </ul>
-  // );
 }
