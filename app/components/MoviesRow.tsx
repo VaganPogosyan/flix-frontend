@@ -1,20 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import MovieCard from "./MovieCard";
 import { Movie } from "./types";
-// import { motion } from "framer-motion";
+import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 
 const base_url = "http://localhost:8000/api";
-
-const variants = {
-  left: {
-    x: "-500px",
-  },
-  right: {
-    x: "0px",
-  },
-};
 
 interface Props {
   category: string;
@@ -28,7 +19,9 @@ export default function MoviesRow({
   isLoading,
 }: Props) {
   const [allMovies, setAllMovies] = useState<Movie[]>([])!;
-  const [moveToSide, setMoveToSide] = useState("");
+  // const [moveToSide, setMoveToSide] = useState("");
+  const ref = useRef<HTMLUListElement>(null);
+  // const [width, setWidth] = useState(0);
 
   const categoryFormattedHeading = category
     .replace("movies", "Movies")
@@ -54,28 +47,51 @@ export default function MoviesRow({
       });
   }, [category, setAllMovies, setIsLoading]);
 
+  const slideLeft = () => {
+    const slider = document.getElementById(`slider-${category}`)!;
+    slider.scrollLeft = slider.scrollLeft - slider.offsetWidth;
+  };
+
+  const slideRight = () => {
+    const slider = document.getElementById(`slider-${category}`)!;
+    slider.scrollLeft = slider.scrollLeft + slider.offsetWidth;
+  };
+
   return (
     !isLoading && (
-      <ul className="mx-16">
-        <h1 className="relative text-3xl text-neutral-200 top-8">
+      <ul className="" ref={ref}>
+        <h1 className="ml-16 relative text-3xl text-neutral-200 top-8">
           {categoryFormattedHeading}
         </h1>
 
-        {/* <button className="p-6 border" onClick={() => setMoveToSide("left")}>
-          Move Left
-        </button>
-        <button className="p-6 border" onClick={() => setMoveToSide("right")}>
-          Move Right
-        </button> */}
+        <div className="flex flex-row items-center group">
+          <div
+            className="h-64 absolute z-[999999999] left-0 bg-black hidden group-hover:block group-hover:bg-opacity-70 group/arrow"
+            onClick={slideLeft}
+          >
+            <h1 className="text-4xl h-60 flex items-center justify-center cursor-pointer w-16 group-hover/arrow:scale-110">
+              <BsChevronLeft />
+            </h1>
+          </div>
 
-        {/* <motion.div variants={variants} animate={moveToSide} className="flex"> */}
-        <div className="flex overflow-auto py-10 no-scrollbar">
-          {allMovies.map((movie: Movie) => (
-            <MovieCard key={movie.id} movie={movie} />
-          ))}
+          <div
+            id={`slider-${category}`}
+            className="scroll-smooth flex px-16 overflow-auto py-10 no-scrollbar"
+          >
+            {allMovies.map((movie: Movie) => (
+              <MovieCard key={movie.id} movie={movie} />
+            ))}
+          </div>
+
+          <div
+            className="h-64 absolute right-0 z-[999999999] opacity-50 bg-black hidden group-hover:block group-hover:opacity-70 group/arrow"
+            onClick={slideRight}
+          >
+            <h1 className="text-4xl h-60 flex items-center justify-center cursor-pointer w-16 group-hover/arrow:scale-125">
+              <BsChevronRight />
+            </h1>
+          </div>
         </div>
-
-        {/* </motion.div> */}
       </ul>
     )
   );
