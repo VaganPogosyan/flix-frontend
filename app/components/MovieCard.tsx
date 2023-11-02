@@ -17,8 +17,6 @@ const variants = {
 
 interface Props {
   movie: Movie;
-  oneVideoPlaying: boolean;
-  setOneVideoPlaying: (oneVideoPlaying: boolean) => void;
 }
 
 export default function MovieCard({ movie }: Props) {

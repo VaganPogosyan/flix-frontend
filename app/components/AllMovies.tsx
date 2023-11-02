@@ -5,8 +5,8 @@ import Spinner from "./Spinner";
 
 const categories = [
   "trending",
-  "action_movies",
-  // "top_rated_movies",
+  // "action_movies",
+  "top_rated_movies",
   "popular_movies",
   "top_rated_tvshows",
   "popular_tvshows",
@@ -30,11 +30,9 @@ const categories = [
 
 export default function AllMovies() {
   const [isLoading, setIsLoading] = useState(false);
-  // const [isHovering, setIsHovering] = useState(false);
-  const [oneVideoPlaying, setOneVideoPlaying] = useState(false);
 
   return (
-    <div>
+    <div className="max-w-screen overflow-hidden">
       {isLoading ? (
         <div className="w-full flex justify-center items-center">
           <div className="w-fit">
@@ -46,8 +44,6 @@ export default function AllMovies() {
           {categories.map((category: string) => (
             <li key={category}>
               <MoviesRow
-                oneVideoPlaying={oneVideoPlaying}
-                setOneVideoPlaying={setOneVideoPlaying}
                 category={category}
                 setIsLoading={setIsLoading}
                 isLoading={isLoading}

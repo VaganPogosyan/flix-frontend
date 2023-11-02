@@ -7,7 +7,7 @@ interface Props {
 }
 
 interface Genres {
-  [key: number]: string;
+  [id: number]: string;
 }
 
 const genres: Genres = {
@@ -65,11 +65,6 @@ export default function MovieInfo({ movie }: Props) {
           </p>
         ))}
       </div>
-
-      {/* <div className="text-sm">
-        <p>{movie.title}</p>
-        <p className=" overflow-scroll">{movie.overview}</p>
-      </div> */}
     </div>
   );
 }

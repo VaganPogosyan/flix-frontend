@@ -1,29 +1,34 @@
 "use client";
-import Image from "next/image";
+
 import { useEffect, useState } from "react";
-import popcorn from "../../public/popcorn.jpg";
 import MovieCard from "./MovieCard";
-import Spinner from "./Spinner";
 import { Movie } from "./types";
+// import { motion } from "framer-motion";
 
 const base_url = "http://localhost:8000/api";
+
+const variants = {
+  left: {
+    x: "-500px",
+  },
+  right: {
+    x: "0px",
+  },
+};
 
 interface Props {
   category: string;
   setIsLoading: (isLoading: boolean) => void;
   isLoading: boolean;
-  oneVideoPlaying: boolean;
-  setOneVideoPlaying: (oneVideoPlaying: boolean) => void;
 }
 
 export default function MoviesRow({
   category,
   setIsLoading,
   isLoading,
-  oneVideoPlaying,
-  setOneVideoPlaying,
 }: Props) {
   const [allMovies, setAllMovies] = useState<Movie[]>([])!;
+  const [moveToSide, setMoveToSide] = useState("");
 
   const categoryFormattedHeading = category
     .replace("movies", "Movies")
@@ -51,20 +56,26 @@ export default function MoviesRow({
 
   return (
     !isLoading && (
-      <ul className="mx-16 mb-4">
-        <h1 className="text-2xl text-neutral-200">
+      <ul className="mx-16">
+        <h1 className="relative text-3xl text-neutral-200 top-8">
           {categoryFormattedHeading}
         </h1>
-        <div className="flex">
+
+        {/* <button className="p-6 border" onClick={() => setMoveToSide("left")}>
+          Move Left
+        </button>
+        <button className="p-6 border" onClick={() => setMoveToSide("right")}>
+          Move Right
+        </button> */}
+
+        {/* <motion.div variants={variants} animate={moveToSide} className="flex"> */}
+        <div className="flex overflow-auto py-10 no-scrollbar">
           {allMovies.map((movie: Movie) => (
-            <MovieCard
-              oneVideoPlaying={oneVideoPlaying}
-              setOneVideoPlaying={setOneVideoPlaying}
-              key={movie.id}
-              movie={movie}
-            />
+            <MovieCard key={movie.id} movie={movie} />
           ))}
         </div>
+
+        {/* </motion.div> */}
       </ul>
     )
   );
