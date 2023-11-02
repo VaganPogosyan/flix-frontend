@@ -17,11 +17,29 @@ const variants = {
 
 interface Props {
   movie: Movie;
+  scrolled: boolean;
+  setScrolled: (scrolled: boolean) => void;
 }
 
-export default function MovieCard({ movie }: Props) {
+export default function MovieCard({ movie, scrolled, setScrolled }: Props) {
   const [showMovieDetails, setShowMovieDetails] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
+  const [position, setPosition] = useState("");
+
+  useEffect(() => {
+    setScrolled(false);
+    let movieCard = document.getElementById(`movie-card-${movie.id}`)!;
+    let rect = movieCard.getBoundingClientRect();
+    const distToRightEdge = window.innerWidth - rect.right;
+
+    if (rect.left < 153) {
+      setPosition("start");
+    } else if (distToRightEdge < 153) {
+      setPosition("end");
+    } else {
+      setPosition("center");
+    }
+  }, [scrolled, movie.id, setScrolled]);
 
   useEffect(() => {
     let timeoutId: ReturnType<typeof setTimeout>;
@@ -41,8 +59,9 @@ export default function MovieCard({ movie }: Props) {
 
   return (
     <li
+      id={`movie-card-${movie.id}`}
       key={movie.id}
-      className="relative min-w-fit m-2 hover:cursor-pointer flex justify-center items-center"
+      className={`relative min-w-fit m-2 hover:cursor-pointer flex justify-${position} items-center`}
       onMouseOver={() => {
         setIsHovering(true);
       }}
@@ -74,7 +93,7 @@ export default function MovieCard({ movie }: Props) {
               ? `https://image.tmdb.org/t/p/w300${movie.poster_path}`
               : "https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM="
           }
-          src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+          src={`https://image.tmdb.org/t/p//w300original${movie.poster_path}`}
           alt=""
         />
       </div>

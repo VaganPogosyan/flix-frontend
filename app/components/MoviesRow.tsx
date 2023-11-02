@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import MovieCard from "./MovieCard";
 import { Movie } from "./types";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
+import debounce from "lodash/debounce";
 
 const base_url = "http://localhost:8000/api";
 
@@ -19,9 +20,8 @@ export default function MoviesRow({
   isLoading,
 }: Props) {
   const [allMovies, setAllMovies] = useState<Movie[]>([])!;
-  // const [moveToSide, setMoveToSide] = useState("");
   const ref = useRef<HTMLUListElement>(null);
-  // const [width, setWidth] = useState(0);
+  const [scrolled, setScrolled] = useState(false);
 
   const categoryFormattedHeading = category
     .replace("movies", "Movies")
@@ -41,7 +41,6 @@ export default function MoviesRow({
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.data);
         setAllMovies(data.data);
         setIsLoading(false);
       });
@@ -55,6 +54,16 @@ export default function MoviesRow({
   const slideRight = () => {
     const slider = document.getElementById(`slider-${category}`)!;
     slider.scrollLeft = slider.scrollLeft + slider.offsetWidth;
+  };
+
+  const handleScroll = () => {
+    setScrolled(true);
+    console.log("scroll");
+
+    setTimeout(() => {
+      setScrolled(false);
+      console.log("timeout");
+    }, 100);
   };
 
   return (
@@ -75,11 +84,17 @@ export default function MoviesRow({
           </div>
 
           <div
+            onScroll={debounce(handleScroll, 300)}
             id={`slider-${category}`}
             className="scroll-smooth flex px-16 overflow-auto py-10 no-scrollbar"
           >
             {allMovies.map((movie: Movie) => (
-              <MovieCard key={movie.id} movie={movie} />
+              <MovieCard
+                key={movie.id}
+                movie={movie}
+                scrolled={scrolled}
+                setScrolled={setScrolled}
+              />
             ))}
           </div>
 
