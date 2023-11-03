@@ -32,7 +32,7 @@ export default function MovieCard({ movie, scrolled, setScrolled }: Props) {
     let rect = movieCard.getBoundingClientRect();
 
     const distToRightEdge = window.innerWidth - rect.right;
-    console.log(movie.name || movie.title, " ", distToRightEdge.toString());
+    // console.log(movie.name || movie.title, " ", distToRightEdge.toString());
 
     if (rect.left < 153) {
       setPosition("start");

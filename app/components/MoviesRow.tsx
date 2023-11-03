@@ -58,11 +58,9 @@ export default function MoviesRow({
 
   const handleScroll = () => {
     setScrolled(true);
-    console.log("scroll");
 
     setTimeout(() => {
       setScrolled(false);
-      console.log("timeout");
     }, 100);
   };
 

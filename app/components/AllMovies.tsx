@@ -78,7 +78,6 @@ export default function AllMovies() {
               randomMovie.media_type !== "movie" && !!randomMovie.first_air_date
             }
           />
-          {/* <ul className="bg-gradient-to-t from-neutral-950 to-transparent"> */}
           <ul className="">
             {categories.map((category: string) => (
               <li key={category}>

@@ -16,6 +16,16 @@ let imageWidth = 1000;
 export default function BigMovie({ randomMovie, isTV }: Props) {
   const [youtubeKey, setYoutubeKey] = useState("");
   const [showVideo, setShowVideo] = useState(false);
+  const [hideImage, setHideImage] = useState(false);
+
+  // const hideImage = () => {
+  //   let hidden = "";
+  //   setTimeout(() => {
+  //     hidden = "hidden";
+  //   }, 300);
+
+  //   return hidden;
+  // };
 
   const movie_or_tv = isTV ? "tv" : "movie";
   const genreIdsLength = randomMovie.genre_ids.length;
@@ -23,6 +33,10 @@ export default function BigMovie({ randomMovie, isTV }: Props) {
   useEffect(() => {
     setTimeout(() => {
       setShowVideo(true);
+    }, 2000);
+
+    setTimeout(() => {
+      setHideImage(true);
     }, 3000);
 
     imageWidth = window.innerWidth;
@@ -36,51 +50,54 @@ export default function BigMovie({ randomMovie, isTV }: Props) {
   }, [movie_or_tv, randomMovie.id]);
 
   return (
-    <div className=" min-w-full max-h-fit h-[700px]">
-      {/* <h1>BIG MOVIE</h1> */}
-
-      {!showVideo ? (
-        <div className="relative">
-          {/* <div className="w-full h-full fixed bg-gradient-to-t from-0% from-neutral-950 via-5% via-neutral-950 to-30% to-transparent"></div> */}
-          <div className="absolute w-full h-full bg-gradient-to-r from-neutral-950 from-0% to-transparent to-90%"></div>
-          <div className="absolute w-1/2 top-[200px] text-neutral-100 drop-shadow-md pl-20">
-            <h2 className="text-7xl">
-              {randomMovie.title || randomMovie.name}
-            </h2>
-            <div className="flex flex-row flex-wrap text-sm mt-6">
-              {randomMovie.genre_ids.map((genreId, idx) => (
-                <p key={genreId}>
-                  {genres[genreId]}
-                  {idx !== genreIdsLength - 1 && (
-                    <span className="mx-2 text-green-600">•</span>
-                  )}
-                </p>
-              ))}
-            </div>
-            <p className="mt-6 text-neutral-300 text-lg w-3/4">
-              {randomMovie.overview}
-            </p>
-            <button
-              onClick={() => setShowVideo(true)}
-              className="mt-6 flex items-center gap-2 rounded-md bg-neutral-100 hover:bg-opacity-80 text-neutral-950 px-10 py-3 text-2xl"
-            >
-              <FaPlay />
-              Play
-            </button>
+    <div className="min-w-full max-h-fit h-[760px]">
+      {/* {!showVideo ? ( */}
+      <div
+        className={`relative ${showVideo && "opacity-0"} duration-1000 ${
+          hideImage && "hidden"
+        }`}
+      >
+        <div className="absolute w-full h-full bg-gradient-to-r from-neutral-950 from-0% to-transparent to-90%"></div>
+        <div className="absolute w-1/2 top-[200px] text-neutral-100 drop-shadow-md pl-20">
+          <h2 className="text-7xl">{randomMovie.title || randomMovie.name}</h2>
+          <div className="flex flex-row flex-wrap text-sm mt-6">
+            {randomMovie.genre_ids.map((genreId, idx) => (
+              <p key={genreId}>
+                {genres[genreId]}
+                {idx !== genreIdsLength - 1 && (
+                  <span className="mx-2 text-green-600">•</span>
+                )}
+              </p>
+            ))}
           </div>
-          <Image
-            width={imageWidth}
-            height={700}
-            loader={() =>
-              `https://image.tmdb.org/t/p/original/${randomMovie.backdrop_path}`
-            }
-            src={`https://image.tmdb.org/t/p/original/${randomMovie.poster_path}`}
-            alt=""
-          />
+          <p className="mt-6 text-neutral-300 text-lg w-3/4">
+            {randomMovie.overview}
+          </p>
+          <button
+            onClick={() => setShowVideo(true)}
+            className="mt-6 flex items-center gap-2 rounded-md bg-neutral-100 hover:bg-opacity-80 text-neutral-950 px-10 py-3 text-2xl"
+          >
+            <FaPlay />
+            Play
+          </button>
         </div>
-      ) : (
-        <MovieClip youtubeKey={youtubeKey} bigMovie={true} />
+        <Image
+          width={imageWidth}
+          height={700}
+          loader={() =>
+            `https://image.tmdb.org/t/p/original/${randomMovie.backdrop_path}`
+          }
+          src={`https://image.tmdb.org/t/p/original/${randomMovie.poster_path}`}
+          alt=""
+        />
+      </div>
+      {/* // ) : ( */}
+      {showVideo && (
+        <div className="pt-[60px]">
+          <MovieClip youtubeKey={youtubeKey} bigMovie={true} />
+        </div>
       )}
+      {/* // )} */}
     </div>
   );
 }

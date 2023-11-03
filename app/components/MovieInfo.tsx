@@ -27,14 +27,18 @@ export default function MovieInfo({ movie }: Props) {
       />
 
       <div className="flex flex-row flex-wrap text-sm mt-4">
-        {movie.genre_ids.map((genreId, idx) => (
-          <p key={genreId}>
-            {genres[genreId]}
-            {idx !== genreIdsLength - 1 && (
-              <span className="mx-2 text-green-600">•</span>
-            )}
-          </p>
-        ))}
+        {movie.genre_ids.map((genreId, idx) =>
+          genres[genreId] ? (
+            <p key={genreId}>
+              {genres[genreId]}
+              {idx !== genreIdsLength - 1 && (
+                <span className="mx-2 text-green-600">•</span>
+              )}
+            </p>
+          ) : (
+            ""
+          )
+        )}
       </div>
     </div>
   );
