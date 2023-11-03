@@ -30,16 +30,21 @@ export default function MovieCard({ movie, scrolled, setScrolled }: Props) {
     setScrolled(false);
     let movieCard = document.getElementById(`movie-card-${movie.id}`)!;
     let rect = movieCard.getBoundingClientRect();
+
     const distToRightEdge = window.innerWidth - rect.right;
+    console.log(movie.name || movie.title, " ", distToRightEdge.toString());
 
     if (rect.left < 153) {
       setPosition("start");
-    } else if (distToRightEdge < 153) {
+      return;
+    } else if (distToRightEdge < 153 && distToRightEdge > -153) {
       setPosition("end");
+      return;
     } else {
       setPosition("center");
+      return;
     }
-  }, [scrolled, movie.id, setScrolled]);
+  }, [scrolled]);
 
   useEffect(() => {
     let timeoutId: ReturnType<typeof setTimeout>;
@@ -90,10 +95,10 @@ export default function MovieCard({ movie, scrolled, setScrolled }: Props) {
           height={170}
           loader={() =>
             movie.poster_path
-              ? `https://image.tmdb.org/t/p/w300${movie.poster_path}`
+              ? `https://image.tmdb.org/t/p/w300/${movie.poster_path}`
               : "https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM="
           }
-          src={`https://image.tmdb.org/t/p//w300original${movie.poster_path}`}
+          src={`https://image.tmdb.org/t/p//w300/${movie.poster_path}`}
           alt=""
         />
       </div>

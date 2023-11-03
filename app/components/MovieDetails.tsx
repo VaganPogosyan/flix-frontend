@@ -34,7 +34,7 @@ export default function MovieDetails({
   return (
     <div>
       <div className="absolute w-[350px] h-[350px] z-[999999] bg-neutral-900 rounded-md overflow-hidden">
-        <MovieClip youtubeKey={youtubeKey} />
+        <MovieClip youtubeKey={youtubeKey} bigMovie={false} />
         <MovieInfo movie={movie} />
       </div>
 

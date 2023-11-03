@@ -1,7 +1,9 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MoviesRow from "./MoviesRow";
 import Spinner from "./Spinner";
+import BigMovie from "./BigMovie";
+import { Movie } from "./types";
 
 const categories = [
   "trending",
@@ -28,8 +30,37 @@ const categories = [
   //   "scifi_fantasy_tvshows",
 ]!;
 
+const defaultMovie = {
+  adult: false,
+  backdrop_path: "",
+  id: 609681,
+  title: "",
+  original_language: "",
+  original_title: "",
+  overview: "",
+  poster_path: "",
+  media_type: "movie",
+  genre_ids: [],
+  popularity: 209.021,
+  release_date: "",
+  video: false,
+  vote_average: 0,
+  vote_count: 0,
+};
+
+const base_url = "http://localhost:8000/api";
+
 export default function AllMovies() {
   const [isLoading, setIsLoading] = useState(false);
+  const [randomMovie, setRandomMovie] = useState<Movie>(defaultMovie);
+
+  useEffect(() => {
+    fetch(`${base_url}/movies/random_movie`)
+      .then((response) => response.json())
+      .then((data) => {
+        setRandomMovie(data.data);
+      });
+  }, []);
 
   return (
     <div className="max-w-screen overflow-hidden">
@@ -40,17 +71,26 @@ export default function AllMovies() {
           </div>
         </div>
       ) : (
-        <ul>
-          {categories.map((category: string) => (
-            <li key={category}>
-              <MoviesRow
-                category={category}
-                setIsLoading={setIsLoading}
-                isLoading={isLoading}
-              />
-            </li>
-          ))}
-        </ul>
+        <div>
+          <BigMovie
+            randomMovie={randomMovie}
+            isTV={
+              randomMovie.media_type !== "movie" && !!randomMovie.first_air_date
+            }
+          />
+          {/* <ul className="bg-gradient-to-t from-neutral-950 to-transparent"> */}
+          <ul className="">
+            {categories.map((category: string) => (
+              <li key={category}>
+                <MoviesRow
+                  category={category}
+                  setIsLoading={setIsLoading}
+                  isLoading={isLoading}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
     </div>
   );

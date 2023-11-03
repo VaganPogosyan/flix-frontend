@@ -1,40 +1,11 @@
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { Tooltip } from "react-tooltip";
 import { Movie } from "./types";
+import { genres } from "./types";
 
 interface Props {
   movie: Movie;
 }
-
-interface Genres {
-  [id: number]: string;
-}
-
-const genres: Genres = {
-  28: "Action",
-  12: "Adventure",
-  16: "Animation",
-  35: "Comedy",
-  80: "Crime",
-  99: "Documentary",
-  18: "Drama",
-  10751: "Family",
-  14: "Fantasy",
-  27: "Horror",
-  9648: "Mystery",
-  10749: "Romance",
-  878: "Science Fiction",
-  53: "Thriller",
-  37: "Western",
-  10759: "Action & Adventure",
-  10762: "Kids",
-  10763: "News",
-  10764: "Reality",
-  10765: "Sci-Fi & Fantasy",
-  10766: "Soap",
-  10767: "Talk",
-  10768: "War & Politics",
-};
 
 export default function MovieInfo({ movie }: Props) {
   const genreIdsLength = movie.genre_ids.length;
