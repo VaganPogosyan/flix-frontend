@@ -1,7 +1,6 @@
 "use client";
 import backImage from "@/public/back.jpg";
 import Image from "next/image";
-// import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 

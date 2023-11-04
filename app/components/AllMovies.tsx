@@ -33,7 +33,7 @@ const categories = [
 const defaultMovie = {
   adult: false,
   backdrop_path: "",
-  id: 609681,
+  id: 0,
   title: "",
   original_language: "",
   original_title: "",
