@@ -1,7 +1,7 @@
-export const metadata = {
-  title: "Flix | Register",
-  description: "Flix register new user",
-};
+// export const metadata = {
+//   title: "Flix | Register",
+//   description: "Flix register new user",
+// };
 
 export default function RootLayout({
   children,

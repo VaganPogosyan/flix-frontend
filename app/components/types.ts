@@ -47,3 +47,18 @@ export const genres: Genres = {
   10767: "Talk",
   10768: "War & Politics",
 };
+
+export interface Profile {
+  _id: string;
+  user_id: string;
+  name: string;
+  color: string;
+  watch_list: [
+    {
+      movie_id: string;
+      _id: string;
+    }
+  ];
+  createdAt: string;
+  updatedAt: string;
+}

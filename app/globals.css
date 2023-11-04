@@ -40,3 +40,7 @@ body {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+.gradient_background {
+  background: linear-gradient(90deg, #0062ff, #da61ff);
+}
