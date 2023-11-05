@@ -65,7 +65,7 @@ Props) {
         onSubmit={handleSubmit}
         className="flex flex-col items-center justify-center"
       >
-        <div className="relative z-0 w-full ">
+        <div className="relative z-0 w-full">
           <input
             onChange={handleChange}
             type="text"

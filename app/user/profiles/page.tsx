@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Profile } from "@/app/components/types";
-import { getCookie } from "@/app/utils/cookieFunctions";
+import { getCookie, setCookie } from "@/app/utils/cookieFunctions";
 import { useRouter } from "next/navigation";
 import { BiEditAlt } from "react-icons/bi";
 import EditMenu from "./components/EditMenu";
@@ -11,6 +11,11 @@ export default function AllProfiles() {
   const [openEditMenu, setOpenEditMenu] = useState(false);
 
   const router = useRouter();
+
+  const chooseProfile = (profile_id: string) => {
+    setCookie("FlixProfileId", profile_id);
+    router.push("/");
+  };
 
   useEffect(() => {
     const accessToken = getCookie("FlixAccessToken");
@@ -36,8 +41,9 @@ export default function AllProfiles() {
         <div className="flex items-center gap-10">
           {profiles &&
             profiles.map((profile: Profile) => (
-              <div key={profile._id} className="">
+              <div key={profile._id}>
                 <div
+                  onClick={() => chooseProfile(profile._id)}
                   style={{
                     background: `linear-gradient(180deg, ${profile.color}, dark${profile.color} )`,
                   }}

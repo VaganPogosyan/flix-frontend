@@ -4,6 +4,7 @@ import MoviesRow from "./MoviesRow";
 import Spinner from "./Spinner";
 import BigMovie from "./BigMovie";
 import { Movie } from "./types";
+import { getCookie } from "../utils/cookieFunctions";
 
 const categories = [
   "trending",
@@ -53,6 +54,11 @@ const base_url = "http://localhost:8000/api";
 export default function AllMovies() {
   const [isLoading, setIsLoading] = useState(false);
   const [randomMovie, setRandomMovie] = useState<Movie>(defaultMovie);
+  // const [profileId, setProfileId] = useState("");
+
+  // useEffect(() => {
+  //   setProfileId(getCookie("FlixProfileId"));
+  // }, [profileId]);
 
   useEffect(() => {
     fetch(`${base_url}/movies/random_movie`)

@@ -2,15 +2,37 @@
 import Link from "next/link";
 import Logo from "./Logo";
 import { useEffect, useState } from "react";
+import { getCookie } from "../utils/cookieFunctions";
+import { Profile } from "./types";
+import { useRouter } from "next/navigation";
+import ProfileIcon from "./ProfileIcon";
 
 export default function NavBar() {
   const [solidBackground, setSolidBackground] = useState(false);
+  const [profile, setProfile] = useState<Profile | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     setTimeout(() => {
       setSolidBackground(true);
     }, 3000);
-  }, []);
+
+    const accessToken = getCookie("FlixAccessToken");
+    const profile_id = getCookie("FlixProfileId");
+
+    const httpOptions: object = {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+
+    fetch(`http://localhost:8000/api/profile/${profile_id}`, httpOptions)
+      .then((response) => response.json())
+      .then((response) => {
+        setProfile(response.data);
+        router.replace("/");
+      });
+  }, [setProfile, router]);
 
   return (
     <nav
@@ -33,7 +55,7 @@ export default function NavBar() {
             </li>
           </ul>
         </div>
-        <div className="text-2xl">Profile</div>
+        <ProfileIcon profile={profile} />
       </div>
     </nav>
   );
