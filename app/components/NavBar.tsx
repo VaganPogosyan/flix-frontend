@@ -9,12 +9,7 @@ import ProfileIcon from "./ProfileIcon";
 
 export default function NavBar() {
   const [solidBackground, setSolidBackground] = useState(false);
-  const [profile, setProfile] = useState<Profile | null>({
-    _id: "",
-    user_id: "",
-    name: "Guest",
-    color: "gray",
-  });
+  const [profile, setProfile] = useState<Profile | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -62,7 +57,9 @@ export default function NavBar() {
             </li>
           </ul>
         </div>
-        <ProfileIcon profile={profile} />
+        <div className={`${!profile && "pointer-events-none"}`}>
+          <ProfileIcon profile={profile} />
+        </div>
       </div>
     </nav>
   );
