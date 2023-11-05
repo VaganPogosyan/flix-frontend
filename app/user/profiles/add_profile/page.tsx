@@ -16,6 +16,7 @@ export default function AllProfiles() {
       method: "POST",
       headers: {
         Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(nameObject),
     };
@@ -44,8 +45,9 @@ export default function AllProfiles() {
             type="text"
             name="name"
             id="name"
+            value={nameObject.name}
             className="block py-2.5 px-0 w-full text-md  text-neutral-100 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-500 peer"
-            placeholder=" "
+            // placeholder=" "
             required
           />
           <label
