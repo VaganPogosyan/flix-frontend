@@ -2,13 +2,15 @@
 import { useEffect, useState } from "react";
 import { Profile } from "@/app/components/types";
 import { getCookie } from "@/app/utils/cookieFunctions";
+import { useRouter } from "next/navigation";
 
 export default function AllProfiles() {
   const [profiles, setProfiles] = useState([]);
 
+  const router = useRouter();
+
   useEffect(() => {
     const accessToken = getCookie("FlixAccessToken");
-    console.log(accessToken);
 
     const httpOptions: object = {
       headers: {
@@ -38,7 +40,7 @@ export default function AllProfiles() {
                   }}
                   className="h-[200px] w-[200px] flex items-center justify-center rounded-md hover:border-4 hover:cursor-pointer"
                 >
-                  <h1 className="text-3xl drop-shadow-[#000_0px_0px_1px]">
+                  <h1 className="text-3xl mx-2 overflow-hidden text-white drop-shadow-[#000_0px_0px_1px]">
                     {profile.name}
                   </h1>
                 </div>
@@ -46,12 +48,13 @@ export default function AllProfiles() {
             ))}
           {profiles.length < 3 && (
             <div
+              onClick={() => router.push("profiles/add_profile")}
               style={{
                 background: `linear-gradient(180deg, #555, #333)`,
               }}
               className="h-[200px] w-[200px] flex items-center justify-center rounded-md hover:border-4 hover:cursor-pointer"
             >
-              <h1 className="text-3xl drop-shadow-[#000_0px_0px_1px]">
+              <h1 className="text-3xl mx-2 text-neutral-200 drop-shadow-[#000_0px_0px_1px]">
                 + Add Profile
               </h1>
             </div>

@@ -48,7 +48,7 @@ export default function User() {
           });
         }
         if (response.status === "success") {
-          router.replace("/user");
+          router.replace("/user/profiles");
         }
       });
   };
@@ -125,7 +125,7 @@ export default function User() {
         <div className="grid md:grid-cols-2 md:gap-6"></div>
         <button
           type="submit"
-          className="text-white bg-red-600 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+          className="text-white bg-red-600 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
         >
           Register
         </button>
