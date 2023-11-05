@@ -66,56 +66,55 @@ export default function BigMovie({ randomMovie, isTV }: Props) {
   return (
     <div className="min-w-full max-h-fit h-[760px]">
       {/* {!showVideo ? ( */}
-      <AnimatePresence>
-        {!showVideo && (
-          <motion.div variants={variants} exit="exit" className="">
-            <div className="absolute w-full h-full bg-gradient-to-r from-neutral-950 from-0% to-transparent to-90%"></div>
-            <div className="absolute w-1/2 top-[200px] text-neutral-100 drop-shadow-md pl-20">
-              <h2 className="text-7xl">
-                {randomMovie.title || randomMovie.name}
-              </h2>
-              <div className="flex flex-row flex-wrap text-sm mt-6">
-                {randomMovie.genre_ids.map((genreId, idx) => (
-                  <p key={genreId}>
-                    {genres[genreId]}
-                    {idx !== genreIdsLength - 1 && (
-                      <span className="mx-2 text-green-600">•</span>
-                    )}
-                  </p>
-                ))}
-              </div>
-              <p className="mt-6 text-neutral-300 text-lg w-3/4">
-                {randomMovie.overview}
-              </p>
-              <button
-                onClick={() => setShowVideo(true)}
-                className="mt-6 flex items-center gap-2 rounded-md bg-neutral-100 hover:bg-opacity-80 text-neutral-950 px-10 py-3 text-2xl"
-              >
-                <FaPlay />
-                Play
-              </button>
+      {/* <AnimatePresence> */}
+      {!showVideo ? (
+        <motion.div variants={variants} exit="exit" className="">
+          <div className="absolute w-full h-full bg-gradient-to-r from-neutral-950 from-0% to-transparent to-90%"></div>
+          <div className="absolute w-1/2 top-[200px] text-neutral-100 drop-shadow-md pl-20">
+            <h2 className="text-7xl">
+              {randomMovie.title || randomMovie.name}
+            </h2>
+            <div className="flex flex-row flex-wrap text-sm mt-6">
+              {randomMovie.genre_ids.map((genreId, idx) => (
+                <p key={genreId}>
+                  {genres[genreId]}
+                  {idx !== genreIdsLength - 1 && (
+                    <span className="mx-2 text-green-600">•</span>
+                  )}
+                </p>
+              ))}
             </div>
-            <Image
-              width={imageWidth}
-              height={700}
-              loader={() =>
-                `https://image.tmdb.org/t/p/original/${randomMovie.backdrop_path}`
-              }
-              src={`https://image.tmdb.org/t/p/original/${randomMovie.poster_path}`}
-              alt=""
-            />
-          </motion.div>
-        )}
-      </AnimatePresence>
-      {/* ) : ( */}
-      <div className="pt-[60px]">
-        <MovieClip
-          youtubeKey={youtubeKey}
-          bigMovie={true}
-          clipWidth={imageWidth}
-        />
-      </div>
-      {/* )} */}
+            <p className="mt-6 text-neutral-300 text-lg w-3/4">
+              {randomMovie.overview}
+            </p>
+            <button
+              onClick={() => setShowVideo(true)}
+              className="mt-6 flex items-center gap-2 rounded-md bg-neutral-100 hover:bg-opacity-80 text-neutral-950 px-10 py-3 text-2xl"
+            >
+              <FaPlay />
+              Play
+            </button>
+          </div>
+          <Image
+            width={imageWidth}
+            height={700}
+            loader={() =>
+              `https://image.tmdb.org/t/p/original/${randomMovie.backdrop_path}`
+            }
+            src={`https://image.tmdb.org/t/p/original/${randomMovie.poster_path}`}
+            alt=""
+          />
+        </motion.div>
+      ) : (
+        <div className="pt-[60px]">
+          <MovieClip
+            youtubeKey={youtubeKey}
+            bigMovie={true}
+            clipWidth={imageWidth}
+          />
+        </div>
+      )}
+      {/* </AnimatePresence> */}
     </div>
   );
 }

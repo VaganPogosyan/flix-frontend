@@ -5,6 +5,7 @@ import Spinner from "./Spinner";
 import BigMovie from "./BigMovie";
 import { Movie } from "./types";
 import { getCookie } from "../utils/cookieFunctions";
+import { useRouter } from "next/navigation";
 
 const categories = [
   "trending",
@@ -54,10 +55,14 @@ const base_url = "http://localhost:8000/api";
 export default function AllMovies() {
   const [isLoading, setIsLoading] = useState(false);
   const [randomMovie, setRandomMovie] = useState<Movie>(defaultMovie);
+
+  // const router = useRouter();
+
   // const [profileId, setProfileId] = useState("");
 
   // useEffect(() => {
   //   setProfileId(getCookie("FlixProfileId"));
+  // router.refresh();
   // }, [profileId]);
 
   useEffect(() => {

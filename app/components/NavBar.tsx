@@ -9,7 +9,12 @@ import ProfileIcon from "./ProfileIcon";
 
 export default function NavBar() {
   const [solidBackground, setSolidBackground] = useState(false);
-  const [profile, setProfile] = useState<Profile | null>(null);
+  const [profile, setProfile] = useState<Profile | null>({
+    _id: "",
+    user_id: "",
+    name: "Guest",
+    color: "gray",
+  });
   const router = useRouter();
 
   useEffect(() => {
@@ -20,18 +25,20 @@ export default function NavBar() {
     const accessToken = getCookie("FlixAccessToken");
     const profile_id = getCookie("FlixProfileId");
 
-    const httpOptions: object = {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    };
+    if (accessToken !== "none" && profile_id !== "none") {
+      const httpOptions: object = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      };
 
-    fetch(`http://localhost:8000/api/profile/${profile_id}`, httpOptions)
-      .then((response) => response.json())
-      .then((response) => {
-        setProfile(response.data);
-        router.replace("/");
-      });
+      fetch(`http://localhost:8000/api/profile/${profile_id}`, httpOptions)
+        .then((response) => response.json())
+        .then((response) => {
+          setProfile(response.data);
+          // router.replace("/");
+        });
+    }
   }, [setProfile, router]);
 
   return (
@@ -48,10 +55,10 @@ export default function NavBar() {
           <Logo />
           <ul className="flex text-sm gap-6">
             <li className="hover:text-neutral-400  duration-200">
-              <Link href="/mami">Home</Link>
+              <Link href="/">Home</Link>
             </li>
             <li className="hover:text-neutral-400 duration-200">
-              <Link href="/papi">Watchlist</Link>
+              <Link href="/">Watchlist</Link>
             </li>
           </ul>
         </div>

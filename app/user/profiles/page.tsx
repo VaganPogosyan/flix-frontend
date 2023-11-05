@@ -20,6 +20,8 @@ export default function AllProfiles() {
   useEffect(() => {
     const accessToken = getCookie("FlixAccessToken");
 
+    if (accessToken === "none") return;
+
     const httpOptions: object = {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -65,9 +67,9 @@ export default function AllProfiles() {
               </div>
             ))}
 
-          {profiles.length < 3 && (
+          {(!profiles || profiles.length < 3) && (
             <div
-              onClick={() => router.push("profiles/add_profile")}
+              onClick={() => router.push("/user/profiles/add_profile")}
               style={{
                 background: `linear-gradient(180deg, #555, #333)`,
               }}

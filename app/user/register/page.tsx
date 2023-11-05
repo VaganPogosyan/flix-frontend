@@ -1,4 +1,5 @@
 "use client";
+import { setCookie } from "@/app/utils/cookieFunctions";
 import backImage from "@/public/back.jpg";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -48,6 +49,7 @@ export default function User() {
           });
         }
         if (response.status === "success") {
+          setCookie("FlixAccessToken", response.accessToken);
           router.replace("/user/profiles");
         }
       });
@@ -70,6 +72,7 @@ export default function User() {
       />
 
       <form onSubmit={handleSubmit} className="z-50 w-1/3">
+        <h1 className="mb-8 text-2xl text-neutral-300">Register</h1>
         <div className="relative z-0 w-full mb-6 group">
           <input
             onChange={handleChange}
@@ -123,13 +126,25 @@ export default function User() {
         </div>
 
         <div className="grid md:grid-cols-2 md:gap-6"></div>
-        <button
-          type="submit"
-          className="text-white bg-red-600 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-        >
-          Register
-        </button>
+        <div className="flex items-center gap-10">
+          <button
+            type="submit"
+            className="text-white bg-red-600 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+          >
+            Register
+          </button>
+          <div className="text-sm">
+            Already have an account?
+            <span
+              onClick={() => router.push("/user/login")}
+              className="ml-2 hover:text-red-500 hover:cursor-pointer underline"
+            >
+              Login
+            </span>
+          </div>
+        </div>
       </form>
+
       <Image
         src={backImage}
         alt="image"

@@ -53,12 +53,12 @@ export interface Profile {
   user_id: string;
   name: string;
   color: string;
-  watch_list: [
+  watch_list?: [
     {
       movie_id: string;
       _id: string;
     }
   ];
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
