@@ -13,7 +13,7 @@ export default function Home() {
       getCookie("FlixAccessToken") === "none" ||
       !getCookie("FlixAccessToken")
     ) {
-      router.replace("/user/login");
+      router.replace("/user/register");
     }
   }, [router]);
 
