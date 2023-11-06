@@ -7,6 +7,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { setCookie } from "@/app/utils/cookieFunctions";
 
+const base_url = "https://flix-backend-api-6e1845c4fce4.herokuapp.com/api";
+
 export default function User() {
   const router = useRouter();
 
@@ -26,7 +28,7 @@ export default function User() {
   const handleSubmit = (event: any) => {
     event.preventDefault();
 
-    fetch("http://localhost:8000/api/user/login", {
+    fetch(`${base_url}/user/login`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",

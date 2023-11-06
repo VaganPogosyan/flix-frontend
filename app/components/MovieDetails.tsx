@@ -10,7 +10,7 @@ interface Props {
   movie: Movie;
 }
 
-const base_url = "http://localhost:8000/api";
+const base_url = "https://flix-backend-api-6e1845c4fce4.herokuapp.com/api";
 
 export default function MovieDetails({
   mouseOutEvent,
@@ -34,7 +34,7 @@ export default function MovieDetails({
   return (
     <div>
       <div className="absolute w-[350px] h-[350px] z-[999999] bg-neutral-900 rounded-md overflow-hidden">
-        <MovieClip youtubeKey={youtubeKey} bigMovie={false} />
+        <MovieClip clipWidth={0} youtubeKey={youtubeKey} bigMovie={false} />
         <MovieInfo movie={movie} />
       </div>
 

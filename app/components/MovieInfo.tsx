@@ -12,6 +12,8 @@ interface Props {
   movie: Movie;
 }
 
+const base_url = "https://flix-backend-api-6e1845c4fce4.herokuapp.com/api";
+
 export default function MovieInfo({ movie }: Props) {
   const [addedToWatchlist, setAddedToWatchlist] = useState(false);
 
@@ -30,7 +32,7 @@ export default function MovieInfo({ movie }: Props) {
     };
 
     fetch(
-      `http://localhost:8000/api/profile/add_to_watchlist/${profileId}/${movie.id}`,
+      `${base_url}/profile/add_to_watchlist/${profileId}/${movie.id}`,
       httpOptions
     )
       .then((response) => response.json())

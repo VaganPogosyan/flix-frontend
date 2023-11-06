@@ -6,7 +6,7 @@ import { Movie } from "./types";
 import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import debounce from "lodash/debounce";
 
-const base_url = "http://localhost:8000/api";
+const base_url = "https://flix-backend-api-6e1845c4fce4.herokuapp.com/api";
 
 interface Props {
   category: string;

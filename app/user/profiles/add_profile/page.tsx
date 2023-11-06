@@ -4,6 +4,8 @@ import { Profile } from "@/app/components/types";
 import { getCookie } from "@/app/utils/cookieFunctions";
 import { useRouter } from "next/navigation";
 
+const base_url = "https://flix-backend-api-6e1845c4fce4.herokuapp.com/api";
+
 export default function AllProfiles() {
   const [nameObject, setNameObject] = useState({ name: "" });
   const router = useRouter();
@@ -23,7 +25,7 @@ export default function AllProfiles() {
 
     console.log(JSON.stringify(httpOptions));
 
-    fetch("http://localhost:8000/api/profile/create_profile", httpOptions)
+    fetch(`${base_url}/profile/create_profile`, httpOptions)
       .then((response) => response.json())
       .then((response) => {
         console.log(response);

@@ -50,7 +50,7 @@ const defaultMovie = {
   vote_count: 0,
 };
 
-const base_url = "http://localhost:8000/api";
+const base_url = "https://flix-backend-api-6e1845c4fce4.herokuapp.com/api";
 
 export default function AllMovies() {
   const [isLoading, setIsLoading] = useState(false);

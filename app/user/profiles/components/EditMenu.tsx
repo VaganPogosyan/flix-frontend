@@ -10,6 +10,8 @@ interface Props {
   //   setPickedColor: (arg: string) => void;
 }
 
+const base_url = "https://flix-backend-api-6e1845c4fce4.herokuapp.com/api";
+
 export default function EditMenu({
   profile_id,
   currentColor,
@@ -48,10 +50,7 @@ Props) {
       body: JSON.stringify(editedProfile),
     };
 
-    fetch(
-      `http://localhost:8000/api/profile/edit_profile/${profile_id}`,
-      httpOptions
-    )
+    fetch(`${base_url}/profile/edit_profile/${profile_id}`, httpOptions)
       .then((response) => response.json())
       .then((response) => {
         setOpenEditMenu(false);

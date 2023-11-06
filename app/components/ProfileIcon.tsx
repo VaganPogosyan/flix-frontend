@@ -3,6 +3,8 @@ import { Profile } from "./types";
 import { useRouter } from "next/navigation";
 import { getCookie, setCookie } from "../utils/cookieFunctions";
 
+const base_url = "https://flix-backend-api-6e1845c4fce4.herokuapp.com/api";
+
 export default function ProfileIcon() {
   const [showModal, setShowModal] = useState(false);
   const [profile, setProfile] = useState<Profile | null>(null);
@@ -26,7 +28,7 @@ export default function ProfileIcon() {
         },
       };
 
-      fetch(`http://localhost:8000/api/profile/${profile_id}`, httpOptions)
+      fetch(`${base_url}/profile/${profile_id}`, httpOptions)
         .then((response) => response.json())
         .then((response) => {
           setProfile(response.data);

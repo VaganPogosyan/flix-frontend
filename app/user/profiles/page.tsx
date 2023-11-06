@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import { BiEditAlt } from "react-icons/bi";
 import EditMenu from "./components/EditMenu";
 
+const base_url = "https://flix-backend-api-6e1845c4fce4.herokuapp.com/api";
+
 export default function AllProfiles() {
   const [profiles, setProfiles] = useState([]);
   const [openEditMenu, setOpenEditMenu] = useState(false);
@@ -33,7 +35,7 @@ export default function AllProfiles() {
       },
     };
 
-    fetch("http://localhost:8000/api/profile", httpOptions)
+    fetch(`${base_url}/profile`, httpOptions)
       .then((response) => response.json())
       .then((response) => {
         setProfiles(response.data);
