@@ -9,7 +9,8 @@ import ProfileIcon from "./ProfileIcon";
 
 export default function NavBar() {
   const [solidBackground, setSolidBackground] = useState(false);
-  const [profile, setProfile] = useState<Profile | null>(null);
+  // const [profile, setProfile] = useState<Profile | null>(null);
+  const [profileSwitched, setProfleSwitched] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -17,24 +18,24 @@ export default function NavBar() {
       setSolidBackground(true);
     }, 3000);
 
-    const accessToken = getCookie("FlixAccessToken");
-    const profile_id = getCookie("FlixProfileId");
+    // const accessToken = getCookie("FlixAccessToken");
+    // const profile_id = getCookie("FlixProfileId");
 
-    if (accessToken !== "none" && profile_id !== "none") {
-      const httpOptions: object = {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      };
+    // if (accessToken !== "none" && profile_id !== "none") {
+    //   const httpOptions: object = {
+    //     headers: {
+    //       Authorization: `Bearer ${accessToken}`,
+    //     },
+    //   };
 
-      fetch(`http://localhost:8000/api/profile/${profile_id}`, httpOptions)
-        .then((response) => response.json())
-        .then((response) => {
-          setProfile(response.data);
-          // router.replace("/");
-        });
-    }
-  }, [setProfile, router]);
+    //   fetch(`http://localhost:8000/api/profile/${profile_id}`, httpOptions)
+    //     .then((response) => response.json())
+    //     .then((response) => {
+    //       setProfile(response.data);
+    //       // router.replace("/");
+    //     });
+    // }
+  }, []);
 
   return (
     <nav
@@ -52,14 +53,12 @@ export default function NavBar() {
             <li className="hover:text-neutral-400  duration-200">
               <Link href="/">Home</Link>
             </li>
-            <li className="hover:text-neutral-400 duration-200">
+            {/* <li className="hover:text-neutral-400 duration-200">
               <Link href="/">Watchlist</Link>
-            </li>
+            </li> */}
           </ul>
         </div>
-        <div className={`${!profile && "pointer-events-none"}`}>
-          <ProfileIcon profile={profile} />
-        </div>
+        <ProfileIcon />
       </div>
     </nav>
   );

@@ -10,13 +10,12 @@ export default function AllProfiles() {
   const [profiles, setProfiles] = useState([]);
   const [openEditMenu, setOpenEditMenu] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [chosenProfile, setChosenProfile] = useState("");
 
   const router = useRouter();
 
   const chooseProfile = (profile_id: string) => {
+    console.log("profile");
     setCookie("FlixProfileId", profile_id);
-    setChosenProfile(profile_id);
     router.push("/");
   };
 
@@ -49,31 +48,30 @@ export default function AllProfiles() {
           <h1 className="text-5xl mb-20">{"Who's watching?"}</h1>
 
           <div className="flex items-center gap-10">
-            {profiles &&
-              profiles.map((profile: Profile) => (
-                <div key={profile._id}>
-                  <div
-                    onClick={() => chooseProfile(profile._id)}
-                    style={{
-                      background: `linear-gradient(180deg, ${profile.color}, dark${profile.color} )`,
-                    }}
-                    className="h-[200px] w-[200px] flex items-center justify-center rounded-md hover:border-4 hover:cursor-pointer"
-                  >
-                    <h1 className="text-3xl mx-2 overflow-hidden text-white drop-shadow-[#000_0px_0px_1px]">
-                      {profile.name}
-                    </h1>
-                  </div>
-
-                  {openEditMenu && (
-                    <EditMenu
-                      currentColor={profile.color}
-                      currentName={profile.name}
-                      profile_id={profile._id}
-                      setOpenEditMenu={setOpenEditMenu}
-                    />
-                  )}
+            {profiles.map((profile: Profile) => (
+              <div key={profile._id}>
+                <div
+                  onClick={() => chooseProfile(profile._id)}
+                  style={{
+                    background: `linear-gradient(180deg, ${profile.color}, dark${profile.color} )`,
+                  }}
+                  className="h-[200px] w-[200px] flex items-center justify-center rounded-md hover:border-4 hover:cursor-pointer"
+                >
+                  <h1 className="text-3xl mx-2 overflow-hidden text-white drop-shadow-[#000_0px_0px_1px]">
+                    {profile.name}
+                  </h1>
                 </div>
-              ))}
+
+                {openEditMenu && (
+                  <EditMenu
+                    currentColor={profile.color}
+                    currentName={profile.name}
+                    profile_id={profile._id}
+                    setOpenEditMenu={setOpenEditMenu}
+                  />
+                )}
+              </div>
+            ))}
 
             {(!profiles || profiles.length < 3) && (
               <div
